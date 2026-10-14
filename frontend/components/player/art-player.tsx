@@ -14,9 +14,11 @@ interface ArtPlayerProps {
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+// HLS proxy: use CF Worker URL if set, fallback to backend proxy
+const HLS_PROXY_BASE = process.env.NEXT_PUBLIC_HLS_PROXY_URL || `${API_BASE}/api/proxy/hls`;
 
 function proxyUrl(url: string) {
-  return `${API_BASE}/api/proxy/hls?url=${encodeURIComponent(url)}`;
+  return `${HLS_PROXY_BASE}?url=${encodeURIComponent(url)}`;
 }
 
 function playM3u8(video: HTMLVideoElement, url: string, art: Artplayer) {
