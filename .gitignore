@@ -1,0 +1,9 @@
+node_modules/
+.env
+dist/
+*.log
+.next/
+web/.next/
+web/.env*.local
+qwertybot-ai.js
+algolia.js

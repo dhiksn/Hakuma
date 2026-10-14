@@ -1,0 +1,15 @@
+{
+  "name": "hanime-handshake-relay",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-07-14",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "hanime.dhiksn.my.id",
+      "custom_domain": true
+    }
+  ],
+  "secrets": {
+    "required": ["RELAY_SECRET"]
+  }
+}

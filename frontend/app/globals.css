@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 0% 20%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 100%;
+
+    --radius: 0.125rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-black text-foreground antialiased selection:bg-white selection:text-black;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: #000000;
+    color: #ffffff;
+  }
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
+
+/* Editorial Thumbnail — always full color */
+.editorial-thumbnail {
+  filter: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .editorial-thumbnail,
+.editorial-thumbnail:hover {
+  filter: none;
+}
+
+/* Fullscreen Age Gate blur */
+.age-gate-blurred {
+  filter: blur(28px) grayscale(100%);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Video Range Input (Monochrome) */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  background: #ffffff;
+  border-radius: 0px;
+  cursor: pointer;
+  margin-top: -4.5px;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+/* Hide number input spinner / stepper scroll buttons */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Artplayer overrides ─────────────────────────────────────────────── */
+
+/* Contain everything inside the player box */
+.art-video-player {
+  overflow: hidden !important;
+}
+
+/* Web fullscreen: push top down so it sits below the sticky navbar (64px) */
+.art-video-player.art-fullscreen-web {
+  top: 64px !important;
+  height: calc(100vh - 64px) !important;
+  z-index: 40 !important;
+}
+
+/* Normal fullscreen: allow true full-screen (no navbar) */
+.art-video-player.art-fullscreen {
+  z-index: 9999 !important;
+}
+
+/* Control bar — clip inside player, never bleed outside */
+.art-video-player .art-bottom,
+.art-video-player .art-controls,
+.art-video-player .art-layer,
+.art-video-player .art-mask,
+.art-video-player .art-setting {
+  z-index: 20 !important;
+}
