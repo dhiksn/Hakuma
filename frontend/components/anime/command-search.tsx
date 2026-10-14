@@ -229,7 +229,7 @@ export function CommandSearch({ open, onOpenChange }: CommandSearchProps) {
               className="cursor-pointer py-2"
             >
               <Calendar className="mr-2 h-4 w-4 text-neutral-400" />
-              <span>JMusiman (Season)</span>
+              <span>Musiman (Season)</span>
             </CommandItem>
             <CommandItem
               onSelect={() => handleSelect('/tags')}
