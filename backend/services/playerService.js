@@ -5,9 +5,6 @@ const axios  = require('axios');
 const signatureService = require('./signatureService');
 
 const HANDSHAKE_URL = process.env.HTV_HANDSHAKE_URL;
-if (!HANDSHAKE_URL) {
-  throw new Error('[playerService] HTV_HANDSHAKE_URL environment variable is required but not set.');
-}
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36';
 
@@ -60,6 +57,11 @@ function openMessage(token) {
  */
 async function resolvePlayer(slug, sessionToken = '', posterUrl = null) {
   if (!slug) return [];
+
+  if (!HANDSHAKE_URL) {
+    console.warn('[playerService] HTV_HANDSHAKE_URL not set — skipping player resolution');
+    return [];
+  }
 
   const sig = await signatureService.getSignature();
   if (!sig) {

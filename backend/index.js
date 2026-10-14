@@ -23,8 +23,19 @@ const PORT = process.env.PORT || 3000;
 // Security & CORS                                                     //
 // ------------------------------------------------------------------ //
 
+const ALLOWED_ORIGINS = (process.env.CORS_ORIGIN || '*')
+  .split(',')
+  .map((o) => o.trim());
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (curl, Postman, server-to-server)
+    if (!origin) return callback(null, true);
+    if (ALLOWED_ORIGINS.includes('*') || ALLOWED_ORIGINS.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS: origin ${origin} not allowed`));
+  },
   methods: ['GET'],
   optionsSuccessStatus: 200,
 };
@@ -180,7 +191,6 @@ app.use(globalErrorMiddleware);
 // ------------------------------------------------------------------ //
 app.listen(PORT, () => {
   console.log(`🚀 Hakuma running on http://localhost:${PORT}`);
-  console.log(`📡 Base URL: ${process.env.BASE_URL || 'https://hanime.tv'}`);
   console.log(`🌍 CORS Origin: ${process.env.CORS_ORIGIN || '*'}`);
   console.log(`✅ Health check: http://localhost:${PORT}/api/health`);
 });
