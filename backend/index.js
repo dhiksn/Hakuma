@@ -82,74 +82,21 @@ app.set('json spaces', 2);
 // Root — API info                                                     //
 // ------------------------------------------------------------------ //
 app.get('/', (req, res) => {
-  const base = `${req.protocol}://${req.get('host')}`;
   res.json({
     success: true,
-    name: 'Hakuma',
+    name: 'Hakuma-API',
     description: 'REST API untuk scraping hanime.tv menggunakan Axios + Cheerio.',
     version: '1.0.0',
-    source: process.env.BASE_URL || 'https://hanime.tv',
     endpoints: [
-      {
-        method: 'GET',
-        path: '/',
-        description: 'Info API dan daftar endpoint.',
-        example: `${base}/`,
-      },
-      {
-        method: 'GET',
-        path: '/api/health',
-        description: 'Cek status server.',
-        example: `${base}/api/health`,
-      },
-      {
-        method: 'GET',
-        path: '/api/home',
-        description: 'Ambil daftar anime dari halaman utama (Recent Uploads, New Releases, Trending, Random).',
-        example: `${base}/api/home`,
-      },
-      {
-        method: 'GET',
-        path: '/api/search',
-        description: 'Cari anime. ?q=keyword (opsional), ?order=recent_upload|old_upload|most_views|least_views|most_likes|least_likes|newest|oldest|title_az|title_za, ?tags=big+boobs,vanilla (AND), ?brands=MS+Pictures (OR), ?blacklist=yaoi,scat, ?page=, ?page_size=.',
-        example: `${base}/api/search?q=kanojo&order=most_views`,
-      },
-      {
-        method: 'GET',
-        path: '/api/video?url=',
-        description: 'Ambil detail dan player dari halaman video. Parameter url wajib diisi dan harus dari hanime.tv.',
-        example: `${base}/api/video?url=https://hanime.tv/videos/hentai/kanojo-saimin-1`,
-      },
-      {
-        method: 'GET',
-        path: '/api/browse',
-        description: 'Ambil daftar semua tags/kategori yang tersedia.',
-        example: `${base}/api/browse`,
-      },
-      {
-        method: 'GET',
-        path: '/api/browse/images',
-        description: 'Ambil community image uploads (cursor-based pagination). ?channel=media|nsfw-general|furry|futa|yaoi|yuri|traps|irl-3d, ?cursor=<nextCursor dari response sebelumnya>.',
-        example: `${base}/api/browse/images?channel=nsfw-general`,
-      },
-      {
-        method: 'GET',
-        path: '/api/browse/trending',
-        description: 'Ambil daftar trending anime. ?timespan=daily|weekly|monthly|quarterly|semi-annual|yearly (default: monthly). Support ?page=.',
-        example: `${base}/api/browse/trending?timespan=monthly`,
-      },
-      {
-        method: 'GET',
-        path: '/api/browse/season',
-        description: 'Ambil daftar anime per season (Summer, Spring, Winter, Fall). Default tahun ini. Support ?year=YYYY.',
-        example: `${base}/api/browse/season?year=${new Date().getFullYear()}`,
-      },
-      {
-        method: 'GET',
-        path: '/api/browse/tags/:slug',
-        description: 'Ambil daftar anime berdasarkan tag. Support pagination via ?page=.',
-        example: `${base}/api/browse/tags/blow%20job?page=1`,
-      },
+      { method: 'GET', path: '/api/health', description: 'Cek status server.' },
+      { method: 'GET', path: '/api/home', description: 'Ambil daftar anime dari halaman utama (Recent Uploads, New Releases, Trending, Random).' },
+      { method: 'GET', path: '/api/search', description: 'Cari anime. ?q=keyword, ?order=recent_upload|old_upload|most_views|least_views|most_likes|least_likes|newest|oldest|title_az|title_za, ?tags=, ?brands=, ?blacklist=, ?page=, ?page_size=.' },
+      { method: 'GET', path: '/api/video?url=', description: 'Ambil detail dan player dari halaman video. Parameter url wajib diisi dan harus dari hanime.tv.' },
+      { method: 'GET', path: '/api/browse', description: 'Ambil daftar semua tags/kategori yang tersedia.' },
+      { method: 'GET', path: '/api/browse/images', description: 'Ambil community image uploads. ?channel=media|nsfw-general|furry|futa|yaoi|yuri|traps|irl-3d, ?cursor=.' },
+      { method: 'GET', path: '/api/browse/trending', description: 'Ambil daftar trending anime. ?timespan=daily|weekly|monthly|quarterly|semi-annual|yearly, ?page=.' },
+      { method: 'GET', path: '/api/browse/season', description: 'Ambil daftar anime per season. ?year=YYYY.' },
+      { method: 'GET', path: '/api/browse/tags/:slug', description: 'Ambil daftar anime berdasarkan tag. ?page=.' },
     ],
   });
 });
@@ -160,7 +107,6 @@ app.get('/api/health', (req, res) => {
     data: {
       status: 'OK',
       timestamp: new Date().toISOString(),
-      baseUrl: process.env.BASE_URL || 'https://hanime.tv',
     },
   });
 });
