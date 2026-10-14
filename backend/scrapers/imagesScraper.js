@@ -170,7 +170,7 @@ async function fetchAndParse(url, baseUrl) {
   return {
     channel: activeChannels.length === 1
       ? activeChannels[0]
-      : (activeChannels.length > 1 ? activeChannels : null),
+      : (activeChannels.length > 1 ? activeChannels : 'all'),
     availableChannels: [
       { name: 'all', count: totalAll },
       ...availableChannels.map((ch) => ({ name: ch, count: channelCounts[ch] ?? null })),
