@@ -13,7 +13,7 @@ const ALLOWED_SCRAPE_HOSTS = new Set([
 ]);
 
 // HLS proxy: allow hanime HLS delivery + key server — anchored hostname check
-const ALLOWED_HLS_PATTERN = /^(hanime\.tv|hanime-cdn\.com|(?:[^.]+\.)?htv-services\.com|htv-hydaelyn[^.]*\.com|etheirys\.[^.]+\.com)$/i;
+const ALLOWED_HLS_PATTERN = /^(hanime\.tv|hanime-cdn\.com|(?:[^.]+\.)?htv-services\.com|(?:[^.]+\.)?htv-[a-z0-9-]+\.com|etheirys\.[^.]+\.com)$/i;
 
 const FORWARDED_REQUEST_HEADERS = [
   'x-signature', 'x-signature-version', 'x-claim', 'x-time', 'x-session-token'

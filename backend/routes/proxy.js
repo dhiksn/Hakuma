@@ -6,7 +6,7 @@ const axios = require('axios');
 const router = express.Router();
 
 // Allow hanime CDN, HLS delivery, and key server domains — anchored to prevent substring bypass
-const ALLOWED_HOST_PATTERN = /^(hanime(?:-cdn)?\.com|hanime\.tv|(?:[^.]+\.)?htv-services\.com|htv-hydaelyn[^.]*\.com|etheirys\.[^.]+\.com)$/i;
+const ALLOWED_HOST_PATTERN = /^(hanime(?:-cdn)?\.com|hanime\.tv|(?:[^.]+\.)?htv-services\.com|(?:[^.]+\.)?htv-[a-z0-9-]+\.com|etheirys\.[^.]+\.com)$/i;
 
 const PROXY_HEADERS = {
   'User-Agent':
