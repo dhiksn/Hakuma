@@ -88,8 +88,8 @@ export function VideoPlayer({
     }
 
     const streamUrl = activeSource.url;
-    // Proxy HLS through backend to avoid CORS block
-    const proxyUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/proxy/hls?url=${encodeURIComponent(streamUrl)}`;
+    // Proxy HLS through CF Worker for CORS-safe delivery
+    const proxyUrl = `${process.env.NEXT_PUBLIC_HLS_PROXY_URL || 'https://hanime.dhiksn.my.id/api/proxy/hls'}?url=${encodeURIComponent(streamUrl)}`;
 
     if (Hls.isSupported()) {
       const hls = new Hls({

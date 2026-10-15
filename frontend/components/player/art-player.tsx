@@ -14,8 +14,8 @@ interface ArtPlayerProps {
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-// HLS proxy: use CF Worker URL if set, fallback to backend proxy
-const HLS_PROXY_BASE = process.env.NEXT_PUBLIC_HLS_PROXY_URL || `${API_BASE}/api/proxy/hls`;
+// HLS proxy: always use CF Worker for CORS-safe delivery
+const HLS_PROXY_BASE = process.env.NEXT_PUBLIC_HLS_PROXY_URL || 'https://hanime.dhiksn.my.id/api/proxy/hls';
 
 function proxyUrl(url: string) {
   return `${HLS_PROXY_BASE}?url=${encodeURIComponent(url)}`;
