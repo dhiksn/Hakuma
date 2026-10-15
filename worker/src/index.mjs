@@ -136,6 +136,19 @@ export function createRelay({ fetchImpl = fetch } = {}) {
     async fetch(request, env) {
       const url = new URL(request.url);
 
+      // Handle CORS preflight for all endpoints
+      if (request.method === 'OPTIONS') {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Signature, X-Signature-Version, X-Claim, X-Time, X-Session-Token',
+            'Access-Control-Max-Age': '86400',
+          },
+        });
+      }
+
       // ── HLS proxy — no auth needed (called directly by browser) ──────────
       if (url.pathname === HLS_PROXY_PATH) {
         return handleHlsProxy(request, fetchImpl);
